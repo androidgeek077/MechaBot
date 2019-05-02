@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "267901475311",
+    "firebase_url": "https://mechabot-d487d.firebaseio.com",
+    "project_id": "mechabot-d487d",
+    "storage_bucket": "mechabot-d487d.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:267901475311:android:14d6638a98cd46ba",
+        "android_client_info": {
+          "package_name": "app.uos.mechabot"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "267901475311-5ilrjmv8ii9m6ancsp4val2g65fe0ua1.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDgPkW6COrek71GBy3Gs-8mokfpKN0yXfY"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "267901475311-5ilrjmv8ii9m6ancsp4val2g65fe0ua1.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
