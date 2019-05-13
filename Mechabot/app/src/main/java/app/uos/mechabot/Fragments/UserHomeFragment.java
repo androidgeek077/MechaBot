@@ -72,7 +72,7 @@ public class UserHomeFragment extends Fragment implements OnMapReadyCallback,
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
-        StudentRef = FirebaseDatabase.getInstance().getReference("StudentInfo").child(FirebaseAuth.getInstance().getUid());
+        StudentRef = FirebaseDatabase.getInstance().getReference("Locations");
         getStudentLocation();
     }
 
@@ -117,7 +117,7 @@ public class UserHomeFragment extends Fragment implements OnMapReadyCallback,
 
                 // For dropping a marker at a point on the Map
                 LatLng Sargodha = new LatLng(32.0740, 72.6861);
-                googleMap.addMarker(new MarkerOptions().position(Sargodha).title("Marker Title").snippet("Marker Description"));
+                googleMap.addMarker(new MarkerOptions().position(Sargodha).title("Home").snippet("Sargodha"));
 
                 // For zooming automatically to the location of the marker
                 CameraPosition cameraPosition = new CameraPosition.Builder().target(Sargodha).zoom(12).build();
@@ -155,12 +155,12 @@ public class UserHomeFragment extends Fragment implements OnMapReadyCallback,
 
     @Override
     public void onLocationChanged(Location location) {
-
+        Toast.makeText(getContext(), "location changed called", Toast.LENGTH_SHORT).show();
         Double a=location.getLatitude();
         Double b=location.getLongitude();
 
-//        Toast.makeText(getContext(), ""+a, Toast.LENGTH_SHORT).show();
-//        Toast.makeText(getContext(), ""+b, Toast.LENGTH_SHORT).show();
+        Toast.makeText(getContext(), ""+a, Toast.LENGTH_SHORT).show();
+        Toast.makeText(getContext(), ""+b, Toast.LENGTH_SHORT).show();
         LatLng currentLocation=new LatLng(location.getLatitude(), location.getLongitude());
         googleMap.addMarker(new MarkerOptions().position(currentLocation).title("Marker in Sydney"));
         googleMap.animateCamera(CameraUpdateFactory.newLatLngZoom(new LatLng(StdLatitude, StdLonitude), 15.0f));
@@ -209,11 +209,11 @@ public class UserHomeFragment extends Fragment implements OnMapReadyCallback,
         StudentRef.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-
+                Toast.makeText(getContext(), ""+dataSnapshot, Toast.LENGTH_SHORT).show();
                 StdLatitude = dataSnapshot.child("studentlat").getValue(Double.class);
-                Toast.makeText(getContext(), ""+StdLatitude, Toast.LENGTH_SHORT).show();
+//                Toast.makeText(getContext(), ""+StdLatitude, Toast.LENGTH_SHORT).show();
                 StdLonitude = dataSnapshot.child("studentlong").getValue(Double.class);
-                Toast.makeText(getContext(), ""+StdLonitude, Toast.LENGTH_SHORT).show();
+//                Toast.makeText(getContext(), ""+StdLonitude, Toast.LENGTH_SHORT).show();
 
 //                mylocation=new LatLng(StdLatitude, StdLonitude);
             }

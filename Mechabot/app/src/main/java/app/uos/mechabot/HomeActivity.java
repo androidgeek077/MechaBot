@@ -55,7 +55,6 @@ public class HomeActivity extends AppCompatActivity {
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
 
 
-        toolbar.setTitle(R.string.app_name);
         BottomNavigationView MainBottomNavigationView;
         MainBottomNavigationView = findViewById(R.id.bottom_navigationer);
 
