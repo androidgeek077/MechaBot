@@ -1,4 +1,4 @@
-package app.uos.mechabot;
+package app.uos.mechabot.Driver;
 
 import android.*;
 import android.Manifest;
@@ -53,6 +53,7 @@ import com.google.firebase.database.ValueEventListener;
 import java.util.ArrayList;
 
 import app.uos.mechabot.Models.getLocationModel;
+import app.uos.mechabot.R;
 
 public class DriverMapActivity extends AppCompatActivity implements OnMapReadyCallback,
         GoogleApiClient.ConnectionCallbacks, GoogleApiClient.OnConnectionFailedListener,
