@@ -112,8 +112,26 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="top"
                 android:background="@drawable/btn_selector"
-                android:text="Add Mechanic" />
+                android:text="@string/add_mechanic" />
+<LinearLayout
+    android:layout_marginTop="10dp"
+    android:orientation="horizontal"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content">
+            <TextView
+                android:textColor="#fff"
+                android:text="@string/already_have_an_account"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+    <TextView
+        android:textStyle="bold"
+        android:layout_marginLeft="5dp"
+        android:text="@string/login_here"
+        android:textColor="@color/colorPrimary"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
 
+</LinearLayout>
 
         </LinearLayout>
 

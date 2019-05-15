@@ -241,7 +241,7 @@ public class DriverMapActivity extends AppCompatActivity implements OnMapReadyCa
 
             mAuth.signOut();
 
-//            startActivity(new Intent(MapsActivity.this, LoginPageActivity.class));
+            startActivity(new Intent(DriverMapActivity.this, MechanicLoginActivity.class));
 
 
         }

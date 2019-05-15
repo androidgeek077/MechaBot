@@ -58,9 +58,11 @@ public class UserHomeFragment extends Fragment implements OnMapReadyCallback,
     private Double StdLatitude, StdLonitude;
     ArrayList mLocationList, mLongList;
 
-
     DatabaseReference StudentRef;
-
+    ArrayList mLocationArr;
+    Double latDouble, langDouble;
+    FirebaseAuth mAuth;
+    DatabaseReference AddLocation;
     MapView mMapView;
     private GoogleMap googleMap;
     private LatLng mylocation;
@@ -72,8 +74,10 @@ public class UserHomeFragment extends Fragment implements OnMapReadyCallback,
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
-        StudentRef = FirebaseDatabase.getInstance().getReference("Locations");
-        getStudentLocation();
+
+        AddLocation= FirebaseDatabase.getInstance().getReference("Locations");
+        getMechanicLocation();
+
     }
 
     @Override
@@ -117,11 +121,14 @@ public class UserHomeFragment extends Fragment implements OnMapReadyCallback,
 
                 // For dropping a marker at a point on the Map
                 LatLng Sargodha = new LatLng(32.0740, 72.6861);
+
                 googleMap.addMarker(new MarkerOptions().position(Sargodha).title("Home").snippet("Sargodha"));
 
                 // For zooming automatically to the location of the marker
                 CameraPosition cameraPosition = new CameraPosition.Builder().target(Sargodha).zoom(12).build();
                 googleMap.animateCamera(CameraUpdateFactory.newCameraPosition(cameraPosition));
+
+
             }
         });
 
@@ -155,14 +162,7 @@ public class UserHomeFragment extends Fragment implements OnMapReadyCallback,
 
     @Override
     public void onLocationChanged(Location location) {
-        Toast.makeText(getContext(), "location changed called", Toast.LENGTH_SHORT).show();
-        Double a=location.getLatitude();
-        Double b=location.getLongitude();
-
-        Toast.makeText(getContext(), ""+a, Toast.LENGTH_SHORT).show();
-        Toast.makeText(getContext(), ""+b, Toast.LENGTH_SHORT).show();
-        LatLng currentLocation=new LatLng(location.getLatitude(), location.getLongitude());
-        googleMap.addMarker(new MarkerOptions().position(currentLocation).title("Marker in Sydney"));
+        googleMap.addMarker(new MarkerOptions().position(mylocation).title("Marker in Sydney"));
         googleMap.animateCamera(CameraUpdateFactory.newLatLngZoom(new LatLng(StdLatitude, StdLonitude), 15.0f));
 
     }
@@ -215,7 +215,6 @@ public class UserHomeFragment extends Fragment implements OnMapReadyCallback,
                 StdLonitude = dataSnapshot.child("studentlong").getValue(Double.class);
 //                Toast.makeText(getContext(), ""+StdLonitude, Toast.LENGTH_SHORT).show();
 
-//                mylocation=new LatLng(StdLatitude, StdLonitude);
             }
 
             @Override
@@ -226,6 +225,27 @@ public class UserHomeFragment extends Fragment implements OnMapReadyCallback,
         return mLocationList;
     }
 
+    private ArrayList<String> getMechanicLocation(){
+        mLocationArr=new ArrayList<>();
+        AddLocation.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                latDouble = (Double) dataSnapshot.child("mLatitude").getValue();
+                langDouble = (Double) dataSnapshot.child("mLongitude").getValue();
+                mylocation=new LatLng(latDouble, langDouble);
+                String str=Double.toString(latDouble);
+                String str1=Double.toString(langDouble);
+                Toast.makeText(getContext(), str, Toast.LENGTH_SHORT).show();
+                Toast.makeText(getContext(), str1, Toast.LENGTH_SHORT).show();
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+            }
+        });
+        return mLocationArr;
+    }
 
 
 }

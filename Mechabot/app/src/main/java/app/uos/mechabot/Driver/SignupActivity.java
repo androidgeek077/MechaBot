@@ -1,22 +1,22 @@
 package app.uos.mechabot.Driver;
 
 import android.content.Intent;
-        import android.graphics.Color;
-        import android.support.annotation.NonNull;
-        import android.support.design.widget.Snackbar;
-        import android.support.v7.app.AppCompatActivity;
-        import android.os.Bundle;
-        import android.view.View;
-        import android.widget.Button;
-        import android.widget.EditText;
-        import android.widget.Toast;
+import android.graphics.Color;
+import android.support.annotation.NonNull;
+import android.support.design.widget.Snackbar;
+import android.support.v7.app.AppCompatActivity;
+import android.os.Bundle;
+import android.view.View;
+import android.widget.Button;
+import android.widget.EditText;
+import android.widget.Toast;
 
-        import com.google.android.gms.tasks.OnCompleteListener;
-        import com.google.android.gms.tasks.Task;
-        import com.google.firebase.auth.AuthResult;
-        import com.google.firebase.auth.FirebaseAuth;
-        import com.google.firebase.database.DatabaseReference;
-        import com.google.firebase.database.FirebaseDatabase;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
+import com.google.firebase.auth.AuthResult;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 
 import app.uos.mechabot.Models.MechanicModel;
 import app.uos.mechabot.R;
@@ -37,7 +37,7 @@ public class SignupActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        getSupportActionBar().setTitle("Add Driver");
+        getSupportActionBar().setTitle("Add Mechanic");
 
         setContentView(R.layout.activity_signup);
 
@@ -92,7 +92,7 @@ public class SignupActivity extends AppCompatActivity {
                                                                     .setAction("OK", new View.OnClickListener() {
                                                                         @Override
                                                                         public void onClick(View view) {
-//                                                                            startActivity(new Intent(SignupActivity.this, DriverActivity.class));
+                                                                            startActivity(new Intent(SignupActivity.this, MechanicLoginActivity.class));
                                                                             finish();
                                                                         }
                                                                     });
@@ -104,7 +104,7 @@ public class SignupActivity extends AppCompatActivity {
                                         mAuth.signOut();
                                     } else {
                                         Snackbar snackbar = Snackbar
-                                                .make(v, "Driver added successfully", Snackbar.LENGTH_INDEFINITE)
+                                                .make(v, "Some Error occured", Snackbar.LENGTH_INDEFINITE)
                                                 .setAction("OK", new View.OnClickListener() {
                                                     @Override
                                                     public void onClick(View view) {
@@ -112,7 +112,7 @@ public class SignupActivity extends AppCompatActivity {
                                                         finish();
                                                     }
                                                 });
-                                        View v=snackbar.getView();
+                                        View v = snackbar.getView();
                                         v.setBackgroundColor(Color.RED);
 
                                         snackbar.show();

@@ -41,10 +41,12 @@ public class HomeActivity extends AppCompatActivity {
 
 
     ConstraintLayout MainFragmentContainer;
+    ArrayList mLocationArr;
+    Double latDouble, langDouble;
 
 
     FirebaseAuth mAuth;
-
+    DatabaseReference AddLocation;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -132,6 +134,8 @@ public class HomeActivity extends AppCompatActivity {
         mFragmentTransaction.addToBackStack(null);
         mFragmentTransaction.commit();
     }
+
+
 
 
 }

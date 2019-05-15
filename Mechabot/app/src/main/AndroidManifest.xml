@@ -12,23 +12,28 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".Driver.SignupActivity"></activity>
-        <activity android:name=".Driver.DriverMapActivity"></activity>
+        <activity android:name=".Driver.MechanicLoginActivity">
+
+        </activity>
+        <activity android:name=".Driver.SignupActivity">
+        </activity>
+        <activity android:name=".Driver.DriverMapActivity" />
 
         <meta-data
             android:name="com.google.android.geo.API_KEY"
             android:value="@string/google_map_key" />
 
-        <activity android:name=".SplashScreen"></activity>
+        <activity android:name=".SplashScreen" />
         <activity android:name=".SignUpActivity" />
         <activity android:name=".HomeActivity">
+
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".MainActivity"></activity>
+        <activity android:name=".MainActivity" />
     </application>
 
 </manifest>

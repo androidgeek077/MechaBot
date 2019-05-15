@@ -1,24 +1,28 @@
-package app.uos.mechabot;
+package app.uos.mechabot.Driver;
 
 import android.content.Intent;
-import android.support.annotation.NonNull;
-import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
-import android.view.View;
-import android.widget.Button;
-import android.widget.EditText;
-import android.widget.TextView;
-import android.widget.Toast;
+        import android.support.annotation.NonNull;
+        import android.support.v7.app.AppCompatActivity;
+        import android.os.Bundle;
+        import android.view.View;
+        import android.widget.Button;
+        import android.widget.EditText;
+        import android.widget.TextView;
+        import android.widget.Toast;
 
-import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.Task;
-import com.google.firebase.auth.AuthResult;
-import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.database.DatabaseReference;
-import com.google.firebase.database.FirebaseDatabase;
-import com.kaopiz.kprogresshud.KProgressHUD;
+        import com.google.android.gms.tasks.OnCompleteListener;
+        import com.google.android.gms.tasks.Task;
+        import com.google.firebase.auth.AuthResult;
+        import com.google.firebase.auth.FirebaseAuth;
+        import com.google.firebase.database.DatabaseReference;
+        import com.google.firebase.database.FirebaseDatabase;
+        import com.kaopiz.kprogresshud.KProgressHUD;
 
-public class MainActivity extends AppCompatActivity  {
+import app.uos.mechabot.HomeActivity;
+import app.uos.mechabot.R;
+import app.uos.mechabot.Driver.SignupActivity;
+
+public class MechanicLoginActivity extends AppCompatActivity  {
 
 
 
@@ -41,14 +45,14 @@ public class MainActivity extends AppCompatActivity  {
         super.onStart();
         mAuth= FirebaseAuth.getInstance();
         if (mAuth.getCurrentUser()!=null){
-            startActivity(new Intent(MainActivity.this, HomeActivity.class));
+            startActivity(new Intent(MechanicLoginActivity.this, HomeActivity.class));
         }
     }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
+        setContentView(R.layout.activity_mechanic_login);
         mAuth = FirebaseAuth.getInstance();
         registerReference = FirebaseDatabase.getInstance().getReference("Drivers");
 
@@ -70,7 +74,7 @@ public class MainActivity extends AppCompatActivity  {
                     edLoginPassword.setError("Please enter password First");
                 } else {
 
-                    progressDialog= KProgressHUD.create(MainActivity.this)
+                    progressDialog= KProgressHUD.create(MechanicLoginActivity.this)
                             .setStyle(KProgressHUD.Style.SPIN_INDETERMINATE)
                             .setAnimationSpeed(2)
                             .setBackgroundColor(getResources().getColor(R.color.colorPrimaryDark))
@@ -86,14 +90,14 @@ public class MainActivity extends AppCompatActivity  {
 
                                     if (task.isSuccessful()) {
 
-                                        startActivity(new Intent(MainActivity.this, HomeActivity.class));
+                                        startActivity(new Intent(MechanicLoginActivity.this, DriverMapActivity.class));
                                         finish();
                                         progressDialog.dismiss();
 
 
                                     } else {
                                         progressDialog.dismiss();
-                                        Toast.makeText(MainActivity.this, task.getException().getMessage(), Toast.LENGTH_SHORT).show();
+                                        Toast.makeText(MechanicLoginActivity.this, task.getException().getMessage(), Toast.LENGTH_SHORT).show();
                                     }
                                 }
                             });
@@ -105,7 +109,7 @@ public class MainActivity extends AppCompatActivity  {
         mSignupTxt.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                startActivity(new Intent(MainActivity.this, SignUpActivity.class));
+                startActivity(new Intent(MechanicLoginActivity.this, SignupActivity.class));
             }
         });
 
@@ -130,7 +134,7 @@ public class MainActivity extends AppCompatActivity  {
 //            View v = findViewById(R.id.btn_login);
 //            snackbar = Snackbar.make(v, "No Internet", Snackbar.LENGTH_LONG);
 //            View snackBarView = snackbar.getView();
-//            snackBarView.setBackgroundColor(ContextCompat.getColor(MainActivity.this, R.color.FailuerAlert));
+//            snackBarView.setBackgroundColor(ContextCompat.getColor(MechanicLoginActivity.this, R.color.FailuerAlert));
 //            snackbar.show();
 //
 //        }
