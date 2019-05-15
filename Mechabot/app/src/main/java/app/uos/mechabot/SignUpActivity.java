@@ -115,7 +115,7 @@ public class SignUpActivity extends AppCompatActivity {
                                                     public void onComplete(@NonNull Task<Void> task) {
                                                         if (task.isSuccessful()) {
                                                             Snackbar snackbar = Snackbar
-                                                                    .make(v, "Student added successfully", Snackbar.LENGTH_INDEFINITE)
+                                                                    .make(v, "User added successfully", Snackbar.LENGTH_INDEFINITE)
                                                                     .setAction("OK", new View.OnClickListener() {
                                                                         @Override
                                                                         public void onClick(View view) {

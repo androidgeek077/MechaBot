@@ -14,6 +14,7 @@ import android.widget.ImageView;
 import com.daimajia.androidanimations.library.Techniques;
 import com.daimajia.androidanimations.library.YoYo;
 
+import app.uos.mechabot.Driver.MechanicLoginActivity;
 import me.wangyuwei.particleview.ParticleView;
 
 public class SplashScreen extends AppCompatActivity {
@@ -57,7 +58,7 @@ public class SplashScreen extends AppCompatActivity {
             @Override
             public void run() {
 
-                startActivity(new Intent(SplashScreen.this,MainActivity.class));
+                startActivity(new Intent(SplashScreen.this, MechanicLoginActivity.class));
                 finish();
             }
 

@@ -84,7 +84,7 @@ public class DriverMapActivity extends AppCompatActivity implements OnMapReadyCa
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        getSupportActionBar().setTitle("Driver Current Location");
+        getSupportActionBar().setTitle("Mechanic Location");
 
         mAuth = FirebaseAuth.getInstance();
 
@@ -134,7 +134,7 @@ public class DriverMapActivity extends AppCompatActivity implements OnMapReadyCa
         mMap = googleMap;
         // Add a marker in Sydney and move the camera
         LatLng sydney = new LatLng(32.078665, 72.68051999999999);
-        mMap.addMarker(new MarkerOptions().position(sydney).title("Marker in Sydney"));
+        mMap.addMarker(new MarkerOptions().position(sydney).title("Marker in Sargodha"));
         mMap.animateCamera(CameraUpdateFactory.newLatLngZoom(new LatLng(32.078665, 72.68051999999999), 15.0f));
     }
 
