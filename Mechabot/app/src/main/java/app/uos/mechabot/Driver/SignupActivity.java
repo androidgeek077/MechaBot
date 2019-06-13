@@ -9,6 +9,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -26,10 +27,11 @@ public class SignupActivity extends AppCompatActivity {
 
 
     DatabaseReference AddDriverRef;
-    EditText driverNameEdtTxt, driverEmailEdtTxt, driverPasswordEdtTxt, driverEducationEdtTxt, driverPhoneEditTxt;
+    EditText driverNameEdtTxt, driverEmailEdtTxt, driverPasswordEdtTxt, driverEducationEdtTxt, driverPhoneEditTxt, driverLatET, driverLongET;
     private Button btnAddDriver;
+    TextView mLoginTV;
 
-    String name, driverEmail, driverPassword, driverEdu, driverPhone;
+    String name, driverEmail, driverPassword, driverEdu, driverPhone, driverlat, driverlong;
     FirebaseAuth mAuth;
 
     MechanicModel mechanicModel;
@@ -44,22 +46,32 @@ public class SignupActivity extends AppCompatActivity {
         AddDriverRef = FirebaseDatabase.getInstance().getReference("Mechanic");
         mAuth = FirebaseAuth.getInstance();
 
+        mLoginTV=findViewById(R.id.loginTV);
+        mLoginTV.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(SignupActivity.this, MechanicLoginActivity.class));
+            }
+        });
         driverNameEdtTxt = findViewById(R.id.ed_signup_name);
         driverEmailEdtTxt = findViewById(R.id.driver_email_edt_txt);
         driverPasswordEdtTxt = findViewById(R.id.ed_driver_password);
         driverEducationEdtTxt = findViewById(R.id.edt_txt_education);
         driverPhoneEditTxt = findViewById(R.id.edt_txt_phone);
+        driverLatET = findViewById(R.id.edt_txt_lat);
+        driverLongET = findViewById(R.id.edt_txt_long);
 
         btnAddDriver = findViewById(R.id.btn_add_driver);
         btnAddDriver.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(final View v) {
                 name = driverNameEdtTxt.getText().toString();
-
                 driverEmail = driverEmailEdtTxt.getText().toString();
                 driverPassword = driverPasswordEdtTxt.getText().toString();
-                driverEdu = driverPasswordEdtTxt.getText().toString();
-                driverPhone = driverPasswordEdtTxt.getText().toString();
+                driverEdu = driverEducationEdtTxt.getText().toString();
+                driverPhone = driverPhoneEditTxt.getText().toString();
+                driverlat = driverLatET.getText().toString();
+                driverlong = driverLongET.getText().toString();
 
 
                 if (name.isEmpty()) {
@@ -74,8 +86,7 @@ public class SignupActivity extends AppCompatActivity {
                     driverPhoneEditTxt.setError("please properly fill phone");
                 } else {
 
-                    mechanicModel = new MechanicModel(name, driverEmail, driverPassword, driverEdu, driverPhone);
-
+                    mechanicModel = new MechanicModel(name, driverEmail, driverPassword, driverEdu, driverPhone, driverlat, driverlong);
 
                     mAuth.createUserWithEmailAndPassword(driverEmail, driverPassword)
                             .addOnCompleteListener(new OnCompleteListener<AuthResult>() {

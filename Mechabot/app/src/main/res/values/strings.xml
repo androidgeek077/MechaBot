@@ -11,4 +11,8 @@
     <string name="login_here">Login here</string>
     <string name="already_have_an_account">Already have an account ?</string>
     <string name="add_mechanic">Add Mechanic</string>
+    <string name="title_activity_admin_botton_nav">AdminBottonNavActivity</string>
+    <string name="title_home">Home</string>
+    <string name="title_dashboard">Dashboard</string>
+    <string name="title_notifications">Notifications</string>
 </resources>

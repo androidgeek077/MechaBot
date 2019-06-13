@@ -1,29 +1,30 @@
 package app.uos.mechabot;
 
+import android.app.Activity;
 import android.content.Intent;
-import android.location.Location;
-import android.location.LocationListener;
+import android.net.Uri;
+import android.os.Bundle;
 import android.support.annotation.NonNull;
-import android.support.annotation.Nullable;
 import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.Toast;
 
-import com.google.android.gms.common.ConnectionResult;
-import com.google.android.gms.common.api.GoogleApiClient;
-import com.google.android.gms.common.oob.SignUp;
-import com.google.android.gms.maps.GoogleMap;
-import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.storage.FirebaseStorage;
+import com.google.firebase.storage.StorageReference;
+import com.google.firebase.storage.UploadTask;
 import com.kaopiz.kprogresshud.KProgressHUD;
 
 import app.uos.mechabot.Models.UserModel;
@@ -33,34 +34,62 @@ public class SignUpActivity extends AppCompatActivity {
 
     KProgressHUD progressDialog;
 
+    Button mSelectedImgBtn;
+    ImageView profileImageView;
+    String downloadUri;
+    LinearLayout view;
+
+    private StorageReference mProfilePicStorageReference;
+    private static final int RC_PHOTO_PICKER = 1;
+    private Uri selectedProfileImageUri;
+
+
+    DatabaseReference databaseReference;
+    FirebaseAuth auth;
+    StorageReference profilePicRef;
+    UserModel userModel;
+
     DatabaseReference registerStudent;
     FirebaseAuth mAuth;
-    EditText edName,edEmail,edPassword, edLat, edLong;
+    EditText edName, edEmail, edPassword, edPhone, edLong;
+    ImageView mProfilePic;
     private Button btnSignUp;
 
-    Double StdLatDouble=0.0;
-    Double StdLongDouble=0.0;
 
-    String name,email, password, latitude, longitude;
+    Double StdLatDouble = 0.0;
+    Double StdLongDouble = 0.0;
+
+    String name, email, password, Phone, ImgUrl;
 
     UserModel Model;
+    private Button mSelectImgBtn;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_sign_up);
+        databaseReference = FirebaseDatabase.getInstance().getReference("user");
+        registerStudent = FirebaseDatabase.getInstance().getReference("user");
+        mProfilePicStorageReference= FirebaseStorage.getInstance().getReference();
+        mAuth = FirebaseAuth.getInstance();
 
-        registerStudent= FirebaseDatabase.getInstance().getReference("user");
-        mAuth=FirebaseAuth.getInstance();
+        edName = findViewById(R.id.ed_signup_name);
+        view = findViewById(R.id.ll);
+        edEmail = findViewById(R.id.edt_txt_email);
+        edPassword = findViewById(R.id.ed_signup_password);
 
-        edName= findViewById(R.id.ed_signup_name);
-        edEmail=findViewById(R.id.edt_txt_email);
-        edPassword=findViewById(R.id.ed_signup_password);
+        edPhone = findViewById(R.id.ed_phone);
+        mProfilePic = findViewById(R.id.selectedImg);
+        mSelectImgBtn = findViewById(R.id.btn_selectimg);
+        mSelectImgBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                getProfilePicture();
+            }
+        });
 
-        edLat=findViewById(R.id.ed_lat);
-        edLong= findViewById(R.id.ed_long);
 
-
-        btnSignUp=findViewById(R.id.btn_signup);
+        btnSignUp = findViewById(R.id.btn_signup);
 
         btnSignUp.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -70,11 +99,7 @@ public class SignUpActivity extends AppCompatActivity {
                 name = edName.getText().toString();
                 email = edEmail.getText().toString();
                 password = edPassword.getText().toString();
-                latitude = edLat.getText().toString();
-                longitude = edLong.getText().toString();
-
-                StdLatDouble = Double.parseDouble(latitude);
-                StdLongDouble = Double.parseDouble(longitude);
+                Phone = edPhone.getText().toString();
 
 
                 if (name.isEmpty()) {
@@ -85,13 +110,9 @@ public class SignUpActivity extends AppCompatActivity {
                     edPassword.setError("Please enter Password");
                 } else if (password.length() < 8) {
                     edPassword.setError("Password must contain at least 8 characters ");
-                } else if (latitude.isEmpty()) {
-                    edPassword.setError("Please enter latitude");
-                } else if (longitude.isEmpty()) {
-                    edPassword.setError("Please enter longitude");
                 } else {
 
-                    progressDialog= KProgressHUD.create(SignUpActivity.this)
+                    progressDialog = KProgressHUD.create(SignUpActivity.this)
                             .setStyle(KProgressHUD.Style.SPIN_INDETERMINATE)
                             .setAnimationSpeed(2)
                             .setBackgroundColor(getResources().getColor(R.color.colorPrimaryDark))
@@ -101,41 +122,35 @@ public class SignUpActivity extends AppCompatActivity {
                             .show();
 
 
+                    mAuth.createUserWithEmailAndPassword(email, password).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
+                        @Override
+                        public void onComplete(@NonNull Task<AuthResult> task) {
+                            if (task.isSuccessful()) {
+                                uploadProduct("https://firebasestorage.googleapis.com/v0/b/mechabot-d487d.appspot.com/o/32566846_1783747771719216_5113386920709193728_n.jpg?alt=media&token=dd05209b-b72d-45bb-8ca2-cf3c8d76175f");
+                                progressDialog.dismiss();
+//                                profilePicRef = mProfilePicStorageReference.child(selectedProfileImageUri.getLastPathSegment());
+//                                profilePicRef.putFile(selectedProfileImageUri).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
+//                                    @Override
+//                                    public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
 //
-                    mAuth.createUserWithEmailAndPassword(email, password)
-                            .addOnCompleteListener(new OnCompleteListener<AuthResult>() {
-                                @Override
-                                public void onComplete(@NonNull Task<AuthResult> task) {
-                                    if (task.isSuccessful()) {
-                                        Model = new UserModel(mAuth.getCurrentUser().getUid(), email, name, password, StdLatDouble, StdLongDouble);
-
-                                        registerStudent.child(mAuth.getCurrentUser().getUid()).setValue(Model)
-                                                .addOnCompleteListener(new OnCompleteListener<Void>() {
-                                                    @Override
-                                                    public void onComplete(@NonNull Task<Void> task) {
-                                                        if (task.isSuccessful()) {
-                                                            Snackbar snackbar = Snackbar
-                                                                    .make(v, "User added successfully", Snackbar.LENGTH_INDEFINITE)
-                                                                    .setAction("OK", new View.OnClickListener() {
-                                                                        @Override
-                                                                        public void onClick(View view) {
-                                                                            startActivity(new Intent(SignUpActivity.this, HomeActivity.class));
-                                                                        }
-                                                                    });
-
-                                                            snackbar.show();
-                                                            progressDialog.dismiss();
-                                                        }
-                                                    }
-                                                });
-                                        mAuth.signOut();
-                                    } else {
-                                        progressDialog.dismiss();
-                                        Toast.makeText(SignUpActivity.this, task.getException().getMessage(), Toast.LENGTH_SHORT).show();
-                                    }
-
-                                }
-                            });
+//                                        profilePicRef.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
+//                                            @Override
+//                                            public void onSuccess(Uri uri) {
+//                                                downloadUri = uri.toString();
+//                                                uploadProduct(downloadUri);
+//                                            }
+//                                        });
+//                                    }
+//                                }).addOnFailureListener(new OnFailureListener() {
+//                                    @Override
+//                                    public void onFailure(@NonNull Exception e) {
+//                                        progressDialog.dismiss();
+//                                        Toast.makeText(SignUpActivity.this, e.getMessage(), Toast.LENGTH_SHORT).show();
+//                                    }
+//                                });
+                            }
+                        }
+                    });
 
 
                 }
@@ -144,9 +159,51 @@ public class SignUpActivity extends AppCompatActivity {
         });
 
 
+    }
 
+    public void getProfilePicture() {
+        Intent intent = new Intent(Intent.ACTION_GET_CONTENT);
+        intent.setType("image/*");
+        intent.putExtra(Intent.EXTRA_LOCAL_ONLY, true);
+        startActivityForResult(Intent.createChooser(intent, "Complete action using"), RC_PHOTO_PICKER);
+    }
 
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (resultCode == Activity.RESULT_OK) {
+            Uri selectedImageUri = data.getData();
+            selectedProfileImageUri = selectedImageUri;
+            mProfilePic.setImageURI(selectedImageUri);
+            mProfilePic.setVisibility(View.VISIBLE);
+        }
 
+    }
+
+    public void uploadProduct(String ImageUrl) {
+
+        userModel = new UserModel(name, email, password, Phone, ImageUrl);
+        databaseReference.child(FirebaseAuth.getInstance().getUid()).setValue(userModel).addOnCompleteListener(new OnCompleteListener<Void>() {
+            @Override
+            public void onComplete(@NonNull Task<Void> task) {
+                progressDialog.dismiss();
+                mProfilePic.setVisibility(View.GONE);
+                final Snackbar snackbar = Snackbar.make(view, "User Added Successfully", Snackbar.LENGTH_INDEFINITE);
+                snackbar.setAction("Ok", new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        snackbar.dismiss();
+                    }
+                });
+                snackbar.show();
+            }
+        }).addOnFailureListener(new OnFailureListener() {
+            @Override
+            public void onFailure(@NonNull Exception e) {
+                progressDialog.dismiss();
+                Snackbar.make(view, e.getMessage(), Snackbar.LENGTH_LONG).show();
+            }
+        });
     }
 
 

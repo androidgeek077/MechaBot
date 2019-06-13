@@ -8,13 +8,34 @@ public class MechanicModel {
     String email;
     String password;
     String education;
+    String latStr;
+    String longStr;
 
-    public MechanicModel(String name, String email, String password, String education, String phone) {
+
+    public String getLatStr() {
+        return latStr;
+    }
+
+    public void setLatStr(String latStr) {
+        this.latStr = latStr;
+    }
+
+    public String getLongStr() {
+        return longStr;
+    }
+
+    public void setLongStr(String longStr) {
+        this.longStr = longStr;
+    }
+
+    public MechanicModel(String name, String email, String password, String education, String phone, String latStr, String longStr) {
         this.name = name;
         this.email = email;
         this.password = password;
         this.education = education;
         this.phone = phone;
+        this.latStr = latStr;
+        this.longStr = longStr;
     }
 
     public MechanicModel(String name, String email,  String phone) {

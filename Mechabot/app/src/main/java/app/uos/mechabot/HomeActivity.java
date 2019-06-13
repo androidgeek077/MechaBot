@@ -35,6 +35,7 @@ import java.util.ArrayList;
 
 import app.uos.mechabot.Fragments.FindMechanicFragment;
 import app.uos.mechabot.Fragments.HistoryFragment;
+import app.uos.mechabot.Fragments.ProfileFragment;
 import app.uos.mechabot.Fragments.UserHomeFragment;
 
 public class HomeActivity extends AppCompatActivity {
@@ -51,10 +52,12 @@ public class HomeActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+
         setContentView(R.layout.activity_home);
+
         mAuth = FirebaseAuth.getInstance();
         MainFragmentContainer = findViewById(R.id.main_fragment_container);
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
 
 
         BottomNavigationView MainBottomNavigationView;
@@ -74,7 +77,7 @@ public class HomeActivity extends AppCompatActivity {
                         loadFragWithBackStack(new FindMechanicFragment());
                         break;
                     case R.id.nav_bus_routes:
-                        loadFragWithBackStack(new HistoryFragment());
+                        loadFragWithBackStack(new ProfileFragment());
                         break;
 
                 }

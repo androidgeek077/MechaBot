@@ -244,6 +244,8 @@ public class DriverMapActivity extends AppCompatActivity implements OnMapReadyCa
             startActivity(new Intent(DriverMapActivity.this, MechanicLoginActivity.class));
 
 
+        } else  if (id==R.id.profile_menu){
+            startActivity(new Intent(DriverMapActivity.this, DriverProfileActivity.class));
         }
 
         return super.onOptionsItemSelected(item);

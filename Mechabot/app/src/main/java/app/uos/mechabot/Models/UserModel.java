@@ -5,6 +5,24 @@ public class UserModel {
     private String email;
     private String password;
     private String id;
+    private String userid;
+    private String phone;
+    private String ImageUrl;
+
+    public UserModel(String name, String email, String phone, String imageUrl) {
+        this.name = name;
+        this.email = email;
+        this.phone = phone;
+        ImageUrl = imageUrl;
+    }
+
+    public UserModel(String name, String email, String password, String phone, String imageUrl) {
+        this.name = name;
+        this.email = email;
+        this.password = password;
+        this.phone = phone;
+        ImageUrl = imageUrl;
+    }
 
     public String getUserid() {
         return userid;
@@ -13,41 +31,31 @@ public class UserModel {
     public void setUserid(String userid) {
         this.userid = userid;
     }
-private String userid;
 
-private Double studentlat;
-private Double studentlong;
 
-public UserModel(String userid, String name, String email, String password,  Double studentlat, Double studentlong) {
-        this.name = name;
-        this.email = email;
-        this.password = password;
-        this.userid = userid;
-        this.studentlat = studentlat;
-        this.studentlong = studentlong;
-        }
+
+
 
 public UserModel() {
         }
 
-public Double getstudentlat() {
-        return studentlat;
-        }
+    public String getPhone() {
+        return phone;
+    }
 
-public void setstudentlat(Double studentlat) {
-        studentlat = studentlat;
-        }
+    public void setPhone(String phone) {
+        this.phone = phone;
+    }
 
-public Double getstudentlong() {
-        return studentlong;
-        }
+    public String getImageUrl() {
+        return ImageUrl;
+    }
 
-public void setstudentlong(Double studentlong) {
-        studentlong = studentlong;
-        }
+    public void setImageUrl(String imageUrl) {
+        ImageUrl = imageUrl;
+    }
 
-
-public String getpassword() {
+    public String getpassword() {
         return password;
         }
 

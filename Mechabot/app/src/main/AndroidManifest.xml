@@ -12,17 +12,17 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".Driver.MechanicLoginActivity">
+        <activity
+            android:name=".Admin.AdminBottonNavActivity"
+            android:label="Admin">
 
         </activity>
-        <activity android:name=".Driver.SignupActivity">
-        </activity>
-        <activity android:name=".Driver.DriverMapActivity" >
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
+        <activity android:name=".Driver.DriverEditProfileActivity" />
+        <activity android:name=".Driver.DriverProfileActivity" />
+        <activity android:name=".Driver.MechanicLoginActivity" />
+        <activity android:name=".Driver.SignupActivity" />
+        <activity android:name=".Driver.DriverMapActivity">
 
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
         </activity>
 
         <meta-data
@@ -31,8 +31,12 @@
 
         <activity android:name=".SplashScreen" />
         <activity android:name=".SignUpActivity" />
-        <activity android:name=".HomeActivity">
+        <activity android:name=".HomeActivity" >
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
 
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
 
         </activity>
         <activity android:name=".MainActivity" />

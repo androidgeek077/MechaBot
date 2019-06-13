@@ -10,18 +10,20 @@
     tools:context="inofys_sol.bustracker.startup.LoginPageActivity">
 
     <LinearLayout
+        android:id="@+id/ll"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_weight="1"
         android:gravity="center"
         android:orientation="vertical"
         android:weightSum="3">
+
         <TextView
-            android:textColor="#FFF"
-            android:textSize="30sp"
-            android:text="Sign up"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content" />
+            android:layout_height="wrap_content"
+            android:text="Sign up"
+            android:textColor="#FFF"
+            android:textSize="30sp" />
 
 
         <LinearLayout
@@ -43,6 +45,7 @@
                     android:hint="Email"
                     android:textColor="@color/white" />
             </android.support.design.widget.TextInputLayout>
+
             <android.support.design.widget.TextInputLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -55,6 +58,7 @@
                     android:hint="Name"
                     android:textColor="@color/white" />
             </android.support.design.widget.TextInputLayout>
+
             <android.support.design.widget.TextInputLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -69,33 +73,33 @@
 
 
             </android.support.design.widget.TextInputLayout>
+
             <android.support.design.widget.TextInputLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:textColorHint="@color/white">
 
                 <EditText
-                    android:id="@+id/ed_lat"
+                    android:id="@+id/ed_phone"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:hint="Latitude"
+                    android:hint="Phone"
                     android:textColor="@color/white" />
             </android.support.design.widget.TextInputLayout>
-            <android.support.design.widget.TextInputLayout
-                android:layout_width="match_parent"
+
+
+            <Button
+                android:id="@+id/btn_selectimg"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:textColorHint="@color/white">
-
-                <EditText
-                    android:id="@+id/ed_long"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:hint="Longitude"
-                    android:textColor="@color/white" />
+                android:text="Select Image" />
 
 
-            </android.support.design.widget.TextInputLayout>
-
+            <ImageView
+                android:visibility="gone"
+                android:id="@+id/selectedImg"
+                android:layout_width="100dp"
+                android:layout_height="100dp" />
 
 
         </LinearLayout>
