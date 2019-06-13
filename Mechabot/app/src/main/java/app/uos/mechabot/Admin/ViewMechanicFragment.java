@@ -60,7 +60,6 @@ public class ViewMechanicFragment extends Fragment {
 
         getActivity().setTitle("Users");
 
-
         CustomerReference= FirebaseDatabase.getInstance().getReference().child("Mechanic");
         mCustomerRecycVw=view.findViewById(R.id.main_recycler_vw);
         RecyclerView.LayoutManager mLayoutManager = new LinearLayoutManager(getActivity());
@@ -89,7 +88,7 @@ public class ViewMechanicFragment extends Fragment {
                 holder.postTitle.setText(model.getName());
 
                 holder.postDescription.setText(model.getPhone());
-//                Glide.with(getActivity().getApplicationContext()).load(model.getImageUrl()).into(holder.postImage);
+                Glide.with(getActivity().getApplicationContext()).load(model.getImageurl()).into(holder.postImage);
 
 
 

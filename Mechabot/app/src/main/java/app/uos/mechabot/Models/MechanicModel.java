@@ -10,6 +10,7 @@ public class MechanicModel {
     String education;
     String latStr;
     String longStr;
+    String imageurl;
 
 
     public String getLatStr() {
@@ -28,7 +29,15 @@ public class MechanicModel {
         this.longStr = longStr;
     }
 
-    public MechanicModel(String name, String email, String password, String education, String phone, String latStr, String longStr) {
+    public String getImageurl() {
+        return imageurl;
+    }
+
+    public void setImageurl(String imageurl) {
+        this.imageurl = imageurl;
+    }
+
+    public MechanicModel(String name, String email, String password, String education, String phone, String latStr, String longStr, String imageurl) {
         this.name = name;
         this.email = email;
         this.password = password;
@@ -36,6 +45,7 @@ public class MechanicModel {
         this.phone = phone;
         this.latStr = latStr;
         this.longStr = longStr;
+        this.imageurl = imageurl;
     }
 
     public MechanicModel(String name, String email,  String phone) {

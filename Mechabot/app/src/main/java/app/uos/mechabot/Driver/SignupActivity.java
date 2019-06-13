@@ -86,7 +86,7 @@ public class SignupActivity extends AppCompatActivity {
                     driverPhoneEditTxt.setError("please properly fill phone");
                 } else {
 
-                    mechanicModel = new MechanicModel(name, driverEmail, driverPassword, driverEdu, driverPhone, driverlat, driverlong);
+                    mechanicModel = new MechanicModel(name, driverEmail, driverPassword, driverEdu, driverPhone, driverlat, driverlong, "");
 
                     mAuth.createUserWithEmailAndPassword(driverEmail, driverPassword)
                             .addOnCompleteListener(new OnCompleteListener<AuthResult>() {

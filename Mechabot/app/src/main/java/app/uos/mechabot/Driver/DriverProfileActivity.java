@@ -82,18 +82,18 @@ public class DriverProfileActivity extends AppCompatActivity {
                 UserPhone = dataSnapshot.child("phone").getValue().toString();
                 UserEmail = dataSnapshot.child("email").getValue().toString();
                 MechanicEducation = dataSnapshot.child("education").getValue().toString();
-//                UserImgUrl = dataSnapshot.child("imageUrl").getValue().toString();
+                UserImgUrl = dataSnapshot.child("imageUrl").getValue().toString();
 
                 mNameTV.setText(Username);
                 mPhoneTV.setText(UserPhone);
                 mEmailTV.setText(UserEmail);
                 mMechincEdu.setText(MechanicEducation);
-//                Glide.with(DriverProfileActivity.this)
-//                        .load( UserImgUrl)
-//                        .into(mProfilePic);
-//                Glide.with(DriverProfileActivity.this)
-//                        .load( UserImgUrl)
-//                        .into(mBgPic);
+                Glide.with(DriverProfileActivity.this)
+                        .load( UserImgUrl)
+                        .into(mProfilePic);
+                Glide.with(DriverProfileActivity.this)
+                        .load( UserImgUrl)
+                        .into(mBgPic);
 
             }
 
