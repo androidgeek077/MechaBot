@@ -9,6 +9,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 import com.google.firebase.auth.FirebaseAuth;
@@ -77,12 +78,12 @@ public class DriverProfileActivity extends AppCompatActivity {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
 
-
+                Toast.makeText(DriverProfileActivity.this, ""+dataSnapshot, Toast.LENGTH_SHORT).show();
                 Username = dataSnapshot.child("name").getValue().toString();
                 UserPhone = dataSnapshot.child("phone").getValue().toString();
                 UserEmail = dataSnapshot.child("email").getValue().toString();
                 MechanicEducation = dataSnapshot.child("education").getValue().toString();
-                UserImgUrl = dataSnapshot.child("imageUrl").getValue().toString();
+                UserImgUrl = dataSnapshot.child("imageurl").getValue().toString();
 
                 mNameTV.setText(Username);
                 mPhoneTV.setText(UserPhone);

@@ -192,6 +192,7 @@ public class SignUpActivity extends AppCompatActivity {
                 snackbar.setAction("Ok", new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
+                        startActivity(new Intent(SignUpActivity.this, MainActivity.class));
                         snackbar.dismiss();
                     }
                 });

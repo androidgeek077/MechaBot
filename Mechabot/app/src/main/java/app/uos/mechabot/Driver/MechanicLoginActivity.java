@@ -45,7 +45,7 @@ public class MechanicLoginActivity extends AppCompatActivity  {
         super.onStart();
         mAuth= FirebaseAuth.getInstance();
         if (mAuth.getCurrentUser()!=null){
-            startActivity(new Intent(MechanicLoginActivity.this, HomeActivity.class));
+            startActivity(new Intent(MechanicLoginActivity.this, DriverMapActivity.class));
         }
     }
 

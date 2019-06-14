@@ -33,6 +33,7 @@ import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
 
+import app.uos.mechabot.Fragments.AboutUsFragment;
 import app.uos.mechabot.Fragments.FindMechanicFragment;
 import app.uos.mechabot.Fragments.HistoryFragment;
 import app.uos.mechabot.Fragments.ProfileFragment;
@@ -55,6 +56,7 @@ public class HomeActivity extends AppCompatActivity {
 
 
         setContentView(R.layout.activity_home);
+        loadFragWithoutBackStack(new UserHomeFragment());
 
         mAuth = FirebaseAuth.getInstance();
         MainFragmentContainer = findViewById(R.id.main_fragment_container);
@@ -73,10 +75,10 @@ public class HomeActivity extends AppCompatActivity {
 
                         loadFragWithoutBackStack(new UserHomeFragment());
                         break;
-                    case R.id.nav_track_bus:
+                    case R.id.nav_track_mechanic:
                         loadFragWithBackStack(new FindMechanicFragment());
                         break;
-                    case R.id.nav_bus_routes:
+                    case R.id.nav_user_profile:
                         loadFragWithBackStack(new ProfileFragment());
                         break;
 
@@ -116,7 +118,7 @@ public class HomeActivity extends AppCompatActivity {
             finish();
             return true;
         } else if (id == R.id.action_about_us) {
-//            loadFragWithoutBackStack(new AboutUsFragment());
+            loadFragWithoutBackStack(new AboutUsFragment());
         }
 
         return super.onOptionsItemSelected(item);

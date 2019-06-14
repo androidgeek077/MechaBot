@@ -15,11 +15,7 @@
         <activity
             android:name=".Admin.AdminBottonNavActivity"
             android:label="Admin">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
 
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
         </activity>
         <activity android:name=".Driver.DriverEditProfileActivity" />
         <activity android:name=".Driver.DriverProfileActivity" />
@@ -32,8 +28,17 @@
         <meta-data
             android:name="com.google.android.geo.API_KEY"
             android:value="@string/google_map_key" />
+        <meta-data
+            android:name="preloaded_fonts"
+            android:resource="@array/preloaded_fonts" />
 
-        <activity android:name=".SplashScreen" />
+        <activity android:name=".SplashScreen" >
+            <intent-filter>
+            <action android:name="android.intent.action.MAIN" />
+
+            <category android:name="android.intent.category.LAUNCHER" />
+        </intent-filter>
+        </activity>
         <activity android:name=".SignUpActivity" />
         <activity android:name=".HomeActivity" >
 

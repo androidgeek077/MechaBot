@@ -18,6 +18,8 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.kaopiz.kprogresshud.KProgressHUD;
 
+import app.uos.mechabot.Admin.AdminBottonNavActivity;
+
 public class MainActivity extends AppCompatActivity  {
 
 
@@ -41,7 +43,7 @@ public class MainActivity extends AppCompatActivity  {
         super.onStart();
         mAuth= FirebaseAuth.getInstance();
         if (mAuth.getCurrentUser()!=null){
-            startActivity(new Intent(MainActivity.this, HomeActivity.class));
+            startActivity(new Intent(MainActivity.this, AdminBottonNavActivity.class));
         }
     }
 
@@ -86,7 +88,7 @@ public class MainActivity extends AppCompatActivity  {
 
                                     if (task.isSuccessful()) {
 
-                                        startActivity(new Intent(MainActivity.this, HomeActivity.class));
+                                        startActivity(new Intent(MainActivity.this, AdminBottonNavActivity.class));
                                         finish();
                                         progressDialog.dismiss();
 

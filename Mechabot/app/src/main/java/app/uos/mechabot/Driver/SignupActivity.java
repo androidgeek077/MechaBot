@@ -86,7 +86,7 @@ public class SignupActivity extends AppCompatActivity {
                     driverPhoneEditTxt.setError("please properly fill phone");
                 } else {
 
-                    mechanicModel = new MechanicModel(name, driverEmail, driverPassword, driverEdu, driverPhone, driverlat, driverlong, "");
+                    mechanicModel = new MechanicModel(name, driverEmail, driverPassword, driverEdu, driverPhone, driverlat, driverlong, "https://firebasestorage.googleapis.com/v0/b/mechabot-d487d.appspot.com/o/download.jpg?alt=media&token=ba9c346b-7064-4cb8-9d63-37bea8521f56");
 
                     mAuth.createUserWithEmailAndPassword(driverEmail, driverPassword)
                             .addOnCompleteListener(new OnCompleteListener<AuthResult>() {

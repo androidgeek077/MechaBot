@@ -121,6 +121,14 @@ public class UserHomeFragment extends Fragment implements OnMapReadyCallback,
 
                 // For dropping a marker at a point on the Map
                 LatLng Sargodha = new LatLng(32.0740, 72.6861);
+                LatLng kachar_Pur = new LatLng(32.092743, 72.733996);
+                LatLng ChakNo52 = new LatLng(32.147929, 72.694703);
+                LatLng GPO = new LatLng(32.073278, 72.668703);
+
+                googleMap.addMarker(new MarkerOptions().position(Sargodha).title("Home").snippet("Sargodha"));
+                googleMap.addMarker(new MarkerOptions().position(kachar_Pur).title("Nazir AutoShop").snippet("0345-8757847"));
+                googleMap.addMarker(new MarkerOptions().position(ChakNo52).title("Bismillah Workshop").snippet("0300-3453463"));
+                googleMap.addMarker(new MarkerOptions().position(GPO).title("Sargodha Motors").snippet("0483217654"));
 
                 googleMap.addMarker(new MarkerOptions().position(Sargodha).title("Home").snippet("Sargodha"));
 
@@ -203,27 +211,6 @@ public class UserHomeFragment extends Fragment implements OnMapReadyCallback,
     }
 
 
-    private ArrayList<Double> getStudentLocation() {
-        mLocationList = new ArrayList<>();
-        mLongList = new ArrayList<>();
-        StudentRef.addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                Toast.makeText(getContext(), ""+dataSnapshot, Toast.LENGTH_SHORT).show();
-                StdLatitude = dataSnapshot.child("studentlat").getValue(Double.class);
-//                Toast.makeText(getContext(), ""+StdLatitude, Toast.LENGTH_SHORT).show();
-                StdLonitude = dataSnapshot.child("studentlong").getValue(Double.class);
-//                Toast.makeText(getContext(), ""+StdLonitude, Toast.LENGTH_SHORT).show();
-
-            }
-
-            @Override
-            public void onCancelled(@NonNull DatabaseError databaseError) {
-
-            }
-        });
-        return mLocationList;
-    }
 
     private ArrayList<String> getMechanicLocation(){
         mLocationArr=new ArrayList<>();
@@ -235,8 +222,8 @@ public class UserHomeFragment extends Fragment implements OnMapReadyCallback,
                 mylocation=new LatLng(latDouble, langDouble);
                 String str=Double.toString(latDouble);
                 String str1=Double.toString(langDouble);
-                Toast.makeText(getContext(), str, Toast.LENGTH_SHORT).show();
-                Toast.makeText(getContext(), str1, Toast.LENGTH_SHORT).show();
+//                Toast.makeText(getContext(), str, Toast.LENGTH_SHORT).show();
+//                Toast.makeText(getContext(), str1, Toast.LENGTH_SHORT).show();
             }
 
             @Override
