@@ -8,20 +8,24 @@ public class UserModel {
     private String userid;
     private String phone;
     private String ImageUrl;
+    private String usertype;
 
-    public UserModel(String name, String email, String phone, String imageUrl) {
+
+    public UserModel(String name, String email, String phone, String imageUrl, String usertype) {
         this.name = name;
         this.email = email;
         this.phone = phone;
         ImageUrl = imageUrl;
+        this.usertype = usertype;
     }
 
-    public UserModel(String name, String email, String password, String phone, String imageUrl) {
+    public UserModel(String name, String email, String password, String phone, String imageUrl, String usertype) {
         this.name = name;
         this.email = email;
         this.password = password;
         this.phone = phone;
         ImageUrl = imageUrl;
+        this.usertype = usertype;
     }
 
     public String getUserid() {

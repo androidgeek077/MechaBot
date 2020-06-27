@@ -15,18 +15,15 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
-import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
-import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
-import com.google.firebase.storage.UploadTask;
 
 
 import app.uos.mechabot.Models.UserModel;
@@ -149,7 +146,7 @@ import app.uos.mechabot.R;
 
         public void uploadProduct(String ImageUrl) {
 
-            userModel = new UserModel(mStrASName, mStrASEmail, mStrASPhone, ImageUrl);
+            userModel = new UserModel(mStrASName, mStrASEmail, mStrASPhone, ImageUrl, "user");
             databaseReference.child(FirebaseAuth.getInstance().getUid()).setValue(userModel).addOnCompleteListener(new OnCompleteListener<Void>() {
                 @Override
                 public void onComplete(@NonNull Task<Void> task) {

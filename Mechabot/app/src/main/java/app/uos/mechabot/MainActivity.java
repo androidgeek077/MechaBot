@@ -1,9 +1,9 @@
 package app.uos.mechabot;
 
 import android.content.Intent;
+import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -14,15 +14,20 @@ import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 import com.kaopiz.kprogresshud.KProgressHUD;
 
 import app.uos.mechabot.Admin.AdminBottonNavActivity;
+import app.uos.mechabot.Driver.DriverMapActivity;
 
 public class MainActivity extends AppCompatActivity  {
 
 
+    String UserType;
 
     KProgressHUD progressDialog;
 
@@ -52,7 +57,7 @@ public class MainActivity extends AppCompatActivity  {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         mAuth = FirebaseAuth.getInstance();
-        registerReference = FirebaseDatabase.getInstance().getReference("Drivers");
+        registerReference = FirebaseDatabase.getInstance().getReference("user");
 
 
         edLoginUserEmail = (EditText) findViewById(R.id.ed_login_useremail);
@@ -87,10 +92,8 @@ public class MainActivity extends AppCompatActivity  {
                                 public void onComplete(@NonNull Task<AuthResult> task) {
 
                                     if (task.isSuccessful()) {
+                                        getUserType();
 
-                                        startActivity(new Intent(MainActivity.this, AdminBottonNavActivity.class));
-                                        finish();
-                                        progressDialog.dismiss();
 
 
                                     } else {
@@ -112,73 +115,36 @@ public class MainActivity extends AppCompatActivity  {
         });
 
 
-//    public void logtheUserIn() {
-//        incomingEmail = edtTxtEmail.getText().toString();
-//        incomingPass = edtTxtPassword.getText().toString();
-//        if (hasActiveInternetConnection()) {
-//            if (incomingEmail.isEmpty() || incomingPass.isEmpty() || incomingPass.length() < 6) {
-//                if (incomingEmail.isEmpty() || incomingPass.isEmpty()) {
-//                    edtTxtEmail.setError("please fill all fields");
-//                    edtTxtPassword.setError("please fill all fields");
-//                } else if (incomingPass.length() < 6) {
-//                    edtTxtPassword.setError("password should be atleast 6 digit long");
-//                }
-//            } else {
-//                ConnectToServer.getSingletonInstance(getApplicationContext()).addRequestToTheRequstQeue(logTheUserInRequest(incomingEmail,incomingPass));
-//            }
-//
-//        } else {
-//            Snackbar snackbar;
-//            View v = findViewById(R.id.btn_login);
-//            snackbar = Snackbar.make(v, "No Internet", Snackbar.LENGTH_LONG);
-//            View snackBarView = snackbar.getView();
-//            snackBarView.setBackgroundColor(ContextCompat.getColor(MainActivity.this, R.color.FailuerAlert));
-//            snackbar.show();
-//
-//        }
-//    }
-
-
-//    ------------------INTERNET CONNECTIVITY METHODS------------------------- //
-
-//    private boolean isNetworkAvailable() {
-//        ConnectivityManager connectivityManager
-//                = (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
-//        NetworkInfo activeNetworkInfo = connectivityManager.getActiveNetworkInfo();
-//        return activeNetworkInfo != null;
-//    }
-
-//    public boolean hasActiveInternetConnection() {
-//        if (isNetworkAvailable()) {
-//
-//            Thread thread = new Thread(new Runnable() {
-//
-//                @Override
-//                public void run() {
-//                    try {
-//                        HttpURLConnection urlc = (HttpURLConnection) (new URL("http://www.google.com").openConnection());
-//                        urlc.setRequestProperty("User-Agent", "Test");
-//                        urlc.setRequestProperty("Connection", "close");
-//                        urlc.setConnectTimeout(1500);
-//                        urlc.connect();
-//
-//                    } catch (Exception e) {
-//                        e.printStackTrace();
-//                    }
-//                }
-//            });
-//
-//            thread.start();
-//            return (true);
-//        } else {
-//            Log.d("internet Checker", "No network available!");
-//            return false;
-//        }
-//
-//    }
-        //    ------------------INTERNET CONNECTIVITY METHODS------------------------- //
-
-
-        //    stringRequestMaker for basic loginURl
     }
+
+    void getUserType() {
+        registerReference.child(mAuth.getCurrentUser().getUid()).addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                if (dataSnapshot.exists())
+                    UserType = dataSnapshot.child("usertype").getValue().toString();
+                Toast.makeText(MainActivity.this, UserType, Toast.LENGTH_SHORT).show();
+
+                if (UserType.equals("driver")) {
+                    startActivity(new Intent(MainActivity.this, DriverMapActivity.class));
+                    finish();
+                } else if (UserType.equals("admin")){
+                    startActivity(new Intent(MainActivity.this, AdminBottonNavActivity.class));
+
+                }
+                else {
+                    startActivity(new Intent(MainActivity.this, HomeActivity.class));
+                    finish();
+                }
+                finish();
+                progressDialog.dismiss();
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+            }
+        });
+    }
+
 }

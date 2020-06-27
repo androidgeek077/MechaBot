@@ -182,7 +182,7 @@ public class SignUpActivity extends AppCompatActivity {
 
     public void uploadProduct(String ImageUrl) {
 
-        userModel = new UserModel(name, email, password, Phone, ImageUrl);
+        userModel = new UserModel(name, email, password, Phone, ImageUrl,"");
         databaseReference.child(FirebaseAuth.getInstance().getUid()).setValue(userModel).addOnCompleteListener(new OnCompleteListener<Void>() {
             @Override
             public void onComplete(@NonNull Task<Void> task) {
