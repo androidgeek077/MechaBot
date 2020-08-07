@@ -54,6 +54,7 @@ public class SignUpActivity extends AppCompatActivity {
     EditText edName, edEmail, edPassword, edPhone, edLong;
     ImageView mProfilePic;
     private Button btnSignUp;
+    String userType;
 
 
     Double StdLatDouble = 0.0;
@@ -68,6 +69,8 @@ public class SignUpActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_sign_up);
+        userType=getIntent().getStringExtra("usettype");
+//        Toast.makeText(this, userType, Toast.LENGTH_SHORT).show();
         databaseReference = FirebaseDatabase.getInstance().getReference("user");
         registerStudent = FirebaseDatabase.getInstance().getReference("user");
         mProfilePicStorageReference= FirebaseStorage.getInstance().getReference();
@@ -187,7 +190,7 @@ public class SignUpActivity extends AppCompatActivity {
 
     public void uploadUser(String ImageUrl) {
 
-        userModel = new UserModel(name, email, password, Phone, ImageUrl,"user");
+        userModel = new UserModel(name, email, password, Phone, ImageUrl,userType);
         databaseReference.child(FirebaseAuth.getInstance().getUid()).setValue(userModel).addOnCompleteListener(new OnCompleteListener<Void>() {
             @Override
             public void onComplete(@NonNull Task<Void> task) {

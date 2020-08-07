@@ -24,7 +24,7 @@ import com.kaopiz.kprogresshud.KProgressHUD;
 import app.uos.mechabot.Admin.AdminBottonNavActivity;
 import app.uos.mechabot.Driver.DriverMapActivity;
 
-public class MainActivity extends AppCompatActivity  {
+public class MainActivity extends AppCompatActivity {
 
 
     String UserType;
@@ -46,9 +46,10 @@ public class MainActivity extends AppCompatActivity  {
     @Override
     protected void onStart() {
         super.onStart();
-        mAuth= FirebaseAuth.getInstance();
-        if (mAuth.getCurrentUser()!=null){
-            startActivity(new Intent(MainActivity.this, AdminBottonNavActivity.class));
+        mAuth = FirebaseAuth.getInstance();
+        if (mAuth.getCurrentUser() != null) {
+            getUserType();
+//            startActivity(new Intent(MainActivity.this, AdminBottonNavActivity.class));
         }
     }
 
@@ -77,7 +78,7 @@ public class MainActivity extends AppCompatActivity  {
                     edLoginPassword.setError("Please enter password First");
                 } else {
 
-                    progressDialog= KProgressHUD.create(MainActivity.this)
+                    progressDialog = KProgressHUD.create(MainActivity.this)
                             .setStyle(KProgressHUD.Style.SPIN_INDETERMINATE)
                             .setAnimationSpeed(2)
                             .setBackgroundColor(getResources().getColor(R.color.colorPrimaryDark))
@@ -108,7 +109,7 @@ public class MainActivity extends AppCompatActivity  {
         mSignupTxt.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                startActivity(new Intent(MainActivity.this, SignUpActivity.class));
+                startActivity(new Intent(MainActivity.this, ChooseUserActivity.class));
             }
         });
 
@@ -126,16 +127,15 @@ public class MainActivity extends AppCompatActivity  {
                 if (UserType.equals("driver")) {
                     startActivity(new Intent(MainActivity.this, DriverMapActivity.class));
                     finish();
-                } else if (UserType.equals("admin")){
+                } else if (UserType.equals("admin")) {
                     startActivity(new Intent(MainActivity.this, AdminBottonNavActivity.class));
 
-                }
-                else {
+                } else {
                     startActivity(new Intent(MainActivity.this, HomeActivity.class));
                     finish();
                 }
                 finish();
-                progressDialog.dismiss();
+//                progressDialog.dismiss();
             }
 
             @Override

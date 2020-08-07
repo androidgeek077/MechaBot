@@ -8,6 +8,15 @@ public class UserModel {
     private String userid;
     private String phone;
     private String ImageUrl;
+
+    public String getUsertype() {
+        return usertype;
+    }
+
+    public void setUsertype(String usertype) {
+        this.usertype = usertype;
+    }
+
     private String usertype;
 
 
