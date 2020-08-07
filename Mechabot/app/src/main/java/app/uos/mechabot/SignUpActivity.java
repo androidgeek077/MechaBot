@@ -126,29 +126,34 @@ public class SignUpActivity extends AppCompatActivity {
                         @Override
                         public void onComplete(@NonNull Task<AuthResult> task) {
                             if (task.isSuccessful()) {
-                                uploadProduct("https://firebasestorage.googleapis.com/v0/b/mechabot-d487d.appspot.com/o/32566846_1783747771719216_5113386920709193728_n.jpg?alt=media&token=dd05209b-b72d-45bb-8ca2-cf3c8d76175f");
+//                                uploadUser("https://firebasestorage.googleapis.com/v0/b/mechabot-d487d.appspot.com/o/32566846_1783747771719216_5113386920709193728_n.jpg?alt=media&token=dd05209b-b72d-45bb-8ca2-cf3c8d76175f");
                                 progressDialog.dismiss();
-//                                profilePicRef = mProfilePicStorageReference.child(selectedProfileImageUri.getLastPathSegment());
-//                                profilePicRef.putFile(selectedProfileImageUri).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
-//                                    @Override
-//                                    public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
-//
-//                                        profilePicRef.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
-//                                            @Override
-//                                            public void onSuccess(Uri uri) {
-//                                                downloadUri = uri.toString();
-//                                                uploadProduct(downloadUri);
-//                                            }
-//                                        });
-//                                    }
-//                                }).addOnFailureListener(new OnFailureListener() {
-//                                    @Override
-//                                    public void onFailure(@NonNull Exception e) {
-//                                        progressDialog.dismiss();
-//                                        Toast.makeText(SignUpActivity.this, e.getMessage(), Toast.LENGTH_SHORT).show();
-//                                    }
-//                                });
+                                profilePicRef = mProfilePicStorageReference.child(selectedProfileImageUri.getLastPathSegment());
+                                profilePicRef.putFile(selectedProfileImageUri).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
+                                    @Override
+                                    public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
+
+                                        profilePicRef.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
+                                            @Override
+                                            public void onSuccess(Uri uri) {
+                                                downloadUri = uri.toString();
+                                                uploadUser(downloadUri);
+                                            }
+                                        });
+                                    }
+                                }).addOnFailureListener(new OnFailureListener() {
+                                    @Override
+                                    public void onFailure(@NonNull Exception e) {
+                                        progressDialog.dismiss();
+                                        Toast.makeText(SignUpActivity.this, e.getMessage(), Toast.LENGTH_SHORT).show();
+                                    }
+                                });
                             }
+                        }
+                    }).addOnFailureListener(new OnFailureListener() {
+                        @Override
+                        public void onFailure(@NonNull Exception e) {
+                            Toast.makeText(SignUpActivity.this, e.getMessage(), Toast.LENGTH_SHORT).show();
                         }
                     });
 
@@ -180,9 +185,9 @@ public class SignUpActivity extends AppCompatActivity {
 
     }
 
-    public void uploadProduct(String ImageUrl) {
+    public void uploadUser(String ImageUrl) {
 
-        userModel = new UserModel(name, email, password, Phone, ImageUrl,"");
+        userModel = new UserModel(name, email, password, Phone, ImageUrl,"user");
         databaseReference.child(FirebaseAuth.getInstance().getUid()).setValue(userModel).addOnCompleteListener(new OnCompleteListener<Void>() {
             @Override
             public void onComplete(@NonNull Task<Void> task) {

@@ -23,7 +23,7 @@
         <activity android:name=".Driver.DriverEditProfileActivity" />
         <activity android:name=".Driver.DriverProfileActivity" />
         <activity android:name=".Driver.MechanicLoginActivity" />
-        <activity android:name=".Driver.SignupActivity" />
+        <activity android:name=".Driver.DriverSignupActivity" />
         <activity android:name=".Driver.DriverMapActivity">
 
         </activity>

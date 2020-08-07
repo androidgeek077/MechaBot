@@ -18,9 +18,7 @@ import android.content.Intent;
         import com.google.firebase.database.FirebaseDatabase;
         import com.kaopiz.kprogresshud.KProgressHUD;
 
-import app.uos.mechabot.HomeActivity;
 import app.uos.mechabot.R;
-import app.uos.mechabot.Driver.SignupActivity;
 
 public class MechanicLoginActivity extends AppCompatActivity  {
 
@@ -109,7 +107,7 @@ public class MechanicLoginActivity extends AppCompatActivity  {
         mSignupTxt.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                startActivity(new Intent(MechanicLoginActivity.this, SignupActivity.class));
+                startActivity(new Intent(MechanicLoginActivity.this, DriverSignupActivity.class));
             }
         });
 

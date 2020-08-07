@@ -94,8 +94,6 @@ public class MainActivity extends AppCompatActivity  {
                                     if (task.isSuccessful()) {
                                         getUserType();
 
-
-
                                     } else {
                                         progressDialog.dismiss();
                                         Toast.makeText(MainActivity.this, task.getException().getMessage(), Toast.LENGTH_SHORT).show();
